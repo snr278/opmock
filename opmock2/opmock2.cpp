@@ -363,10 +363,11 @@ int main ( int argc, char **argv )
         new clang::DiagnosticsEngine ( DiagID, &*DiagOpts, DiagClient ) );
 
     clang::CompilerInvocation *CI = new clang::CompilerInvocation();
-    clang::CompilerInvocation::CreateFromArgs ( *CI, Args.begin(), Args.end(), *DiagsRef );
+    clang::CompilerInvocation::CreateFromArgs ( *CI, Args, *DiagsRef );
 
     auto PCH = std::make_shared<clang::PCHContainerOperations>();
-    AST = clang::ASTUnit::LoadFromCompilerInvocationAction ( CI, PCH, DiagsRef );
+    std::shared_ptr<clang::CompilerInvocation> auto_CI (CI);
+    AST = clang::ASTUnit::LoadFromCompilerInvocationAction ( auto_CI, PCH, DiagsRef );
 
     MyRecursiveASTVisitorCpp myvis;
     myvis.ast = &AST->getASTContext();
