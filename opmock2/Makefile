@@ -6,8 +6,8 @@ RTTIFLAG := -fno-rtti
 
 #this gets hairy : need to split calls to llvm-config otherwise linking fails
 #need also to restrict the number of libraries : the executable is way too large
-CXXFLAGS := $(shell $(LLVM_CONFIG_CMD) --cxxflags) $(RTTIFLAG) -static
-LDFLAGS := $(shell $(LLVM_CONFIG_CMD) --ldflags) -static
+CXXFLAGS := $(shell $(LLVM_CONFIG_CMD) --cxxflags) $(RTTIFLAG) 
+LDFLAGS := $(shell $(LLVM_CONFIG_CMD) --ldflags) 
 LLVMLIBS = $(shell $(LLVM_CONFIG_CMD) --libs all) $(shell $(LLVM_CONFIG_CMD) --system-libs)
 
 SOURCES = opmock2.cpp
